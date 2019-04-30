@@ -10,7 +10,6 @@ export default class Sushi extends Component {
     if (!this.props.amIBroke(this.props.sushi)){
       this.setState({eaten: true})
     }
-    //this.props.addPlate(this)
   }
 
   render(){
