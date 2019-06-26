@@ -17,7 +17,7 @@ The component hierarchy should be as follows:
 
 Be sure to read all of the notes in the all of the components before getting started! They will give you clues as to how and where to manage `state` and `props`
 
-##Check the components, read any hints any figure out the component hierarchy.
+##Check the components, read any hints any draw out the component hierarchy.
 
 ##Check data and see how it’s presented.
 
@@ -39,7 +39,7 @@ Be sure to read all of the notes in the all of the components before getting sta
   }
 
 
-2. Only 4 sushi are rendered at a time
+2. Only 4 sushi are rendered at a time - talking point - how did we all go about it?  (3mins)
 (inside render)
     let nextFour = this.state.allSushi.slice(index, index + 4)
 
@@ -65,7 +65,7 @@ Add money and eatenSushi to state.
     })
   }
 
-  Then render the plates:
+  Then render the empty plates:
 
       <h1 className="remaining">
         You have: ${props.money} remaining!

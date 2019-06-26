@@ -28,9 +28,16 @@ class App extends Component {
   }
 
   moreSushi = () => {
-    this.setState({
-      index: this.state.index + 4
-    })
+    if (this.state.index === 96) {
+      this.setState({
+        index: 0
+      })
+    } else {
+      this.setState({
+        index: this.state.index + 4
+      })
+    }
+
   }
 
   eatSushi = (sushi) => {
@@ -51,7 +58,7 @@ class App extends Component {
 
     return (
       <div className="app">
-        <SushiContainer fourSushi={nextFour} moreSushi={this.moreSushi} eatSushi={this.eatSushi} />
+        <SushiContainer fourSushi={nextFour} moreSushi={this.moreSushi} eatSushi={this.eatSushi} eatenSushi={eatenSushi}/>
         <Table money={money} eatenSushi={eatenSushi} />
       </div>
     );
