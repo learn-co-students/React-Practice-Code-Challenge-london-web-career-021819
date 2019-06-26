@@ -1,45 +1,97 @@
 # Mod 4 Practice Code Challenge: Sushi Saga
-
-Welcome to Sushi Saga, where your journey to sushi is only just beginning!
-
-We've had a bit of trouble with our patented Sushi Saga conveyor belt system, so before you can eat, you're going to have to help us get it working.
-
 **Here's what it should look like:**
 
 ![Sushi Saga](https://raw.githubusercontent.com/learn-co-curriculum/React-Practice-Code-Challenge/master/sushi-saga-demo.gif)
 
-**Doesn't that look delicious?!**
-
-## Setup
-
 ### Server
-To get you going, we've got a backend just chock full of sushi just waiting to be eaten! To get get these guys, you're going to have to do the follow:
-
 1. Navigate to `sushi-saga-client` and run `json-server --watch db.json`
 2. Navigate to `http://localhost:3000/sushis` to confirm delivery of sushi!
 
 
 ### Client
-Just as all good sushi needs a firm base of delicious rice, we've given you quite a bit of code to start off your frontend!
-
-This will be located within the `sushi-saga-client` directory of this repo. Inside are all the components you'll need, as well as instructions as to where and how to render those components properly.
+This will be located within the `sushi-saga-client` directory of this repo. 
 
 The component hierarchy should be as follows:
-
 - `App` is parent to both `SushiContainer` and `Table`
 - `SushiContainer` is parent to both `Sushi` and `MoreButton`
 
 Be sure to read all of the notes in the all of the components before getting started! They will give you clues as to how and where to manage `state` and `props`
 
-## Deliverables
-Inspectors will be coming by to check that our patented Sushi Saga conveyor belt is working properly! Oh no! They will be checking the following:
+##Check the components, read any hints any figure out the component hierarchy.
 
+##Check data and see how it’s presented.
+
+## Deliverables
 1. Sushi list is properly received from the server
+
+
+ componentDidMount = () => {
+    this.getAllSushi()
+  }
+
+  getAllSushi = () => {
+    return fetch(API)
+      .then(resp => resp.json())
+      .then(data => this.setState({
+        allSushi: data
+      }))
+    
+  }
+
+
 2. Only 4 sushi are rendered at a time
-3. Clicking the "More Sushi!" button shows the next set of 4 sushi in the list. For this assignment, you don't have to be concerned about what happens when you reach the end of the sushi list.
+(inside render)
+    let nextFour = this.state.allSushi.slice(index, index + 4)
+
+
+3. Clicking the "More Sushi!" button shows the next set of 4 sushi in the list.
+
+ moreSushi = () => {
+    this.setState({
+      index : this.state.index + 4
+    })
+  }
+
+
+
 4. Clicking a sushi on a plate will eat the sushi, causing it to be removed from its plate and an empty plate to appear on the table.
+
+Add money and eatenSushi to state.
+
+  eatSushi = (sushi) => {
+    this.setState({
+      money : this.state.money - sushi.price,
+      eatenSushi : [...this.state.eatenSushi, sushi]
+    })
+  }
+
+  Then render the plates:
+
+      <h1 className="remaining">
+        You have: ${props.money} remaining!
+      </h1>
+      <div className="table">
+        <div className="stack">
+          {
+            renderPlates(props.eatenSushi)
+          }
+        </div>
+      </div>
+
+
 5. We need to make money! Whenever a sushi is eaten, customers should be automatically charged! Based on a budget decided by you, the developer, the amount of money remaining should go down by the cost of the sushi that was eaten. There is a spot to display this number in the `Table` component
+
 6. No free meals! Customers cannot eat any sushi that exceeds the amount of money remaining in their balance
+
+  eatSushi = (sushi) => {
+    if (this.state.money > sushi.price) {
+      this.setState({
+        money: this.state.money - sushi.price,
+        eatenSushi: [...this.state.eatenSushi, sushi]
+      })
+    }
+    else { alert("Not enough cash!") }
+  }
 
 ### Bonus!
 
